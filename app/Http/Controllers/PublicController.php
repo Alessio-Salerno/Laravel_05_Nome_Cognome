@@ -2,10 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PublicController extends Controller
 {
+
+  public function welcome()
+  {
+      $titolo = 'HACK124'; 
+      return view('welcome', ['titolo' => $titolo]);
+  }
+
+
+
+
  public  function chiSiamo(){
         $studenti = [
     
@@ -34,6 +47,31 @@ foreach ($studenti as $studente ) {
   }
 }
 }
+
+
+
+// ROTTA POST CONTACTUS
+public function contactUs(Request $request){
+
+  $user = $request->input('user');
+  $email = $request->input('email');
+  $message = $request->input('message');
+  $userData = compact('user', 'email', 'message');
+
+  try{
+
+    Mail::to($email)->send(new ContactMail($userData));
+  }
+    
+catch(Exception $e){
+
+return redirect()->route('welcome')->with('emailError', "C'è stato un problema con invio mail, riprova dopo");
+}
+
+
+  return redirect(route('welcome'))->with('emailSent', 'Hai correttamente inviato un email');
+}
+
 
 
 }

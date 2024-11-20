@@ -24,14 +24,10 @@ Route::get('/chiSiamo',[PublicController::class, 'chiSiamo'])->name('chi.siamo')
 
 
 
+Route::get('/', [PublicController::class, 'welcome'])->name('welcome');
 
 
-Route::get('/', function () {
-    $titolo = 'HACK124';
-    return view('welcome', ['titolo'=> $titolo]); //PASSAGGIO DI DATI ALLA VISTA
-    //CHIAVE DELL'ARRAY - NOME DELLA VARIABILE SULLA VISTA 
-}); 
-
+ 
 
 
 
@@ -67,6 +63,22 @@ Route::get('/cosa-sappiamo', function() {
 })->name('cosaSappiamo');
 
 
+
+
+// ROTTA CONTATTI
+Route::get('/contacts', function() {
+return view('contacts');
+
+});
+
+// ROTTA  POST INVIO MAIL
+Route::post('/contact-us', [PublicController::class, 'contactUs'])->name('contactUs');
+
+
+
+
+
+
 // ROUTE COSA SAPPIAMO (DETAIL)
 Route::get('/cosa-sappiamo/detail/{name}', [App\Http\Controllers\PublicControllerDue::class, 'cosa-sappiamo-detail'])->name('cosaSappiamoDetail');
 
@@ -75,9 +87,6 @@ Route::get('/movies', [PublicControllerDue::class, 'moviesList'])->name('movie.l
 
 // ROTTA PER MOVIE DETAILS
 Route::get('/movie/detail/{id}', [PublicControllerDue::class, 'movieDetail'])->name('movieDetail');
-
-
-
 
 
 
@@ -97,6 +106,8 @@ Route::get('/studenti/dettaglio/{id}', [PublicController::class, 'dettaglio'])->
 
 // ROTTA PARAMETRICA -> rotta che accetta un parametro
 Route::get('/docenti/dettaglio/{name}', [docentiController::class, 'dettaglio']) ->name('docente.detail');
+
+
 
 
 
