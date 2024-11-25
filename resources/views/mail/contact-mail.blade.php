@@ -13,7 +13,7 @@
 
 <h3>Riepilogo del tuo messaggio:</h3>
 
-<p>{{$user_data['message']}}</p>
+<p>{{$user_contact['message']}}</p>
 
 </body>
 </html>
